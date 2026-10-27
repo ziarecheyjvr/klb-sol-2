@@ -306,4 +306,20 @@
       done.focus?.();
     });
   }
+
+  /* ---------- Listings carousel ---------- */
+  const track = document.getElementById('listings');
+  if (track) {
+    const [prev, next] = document.querySelectorAll('.ls-nav button');
+    const step = () => track.firstElementChild.getBoundingClientRect().width + 16;
+    const sync = () => {
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step() }));
+    next.addEventListener('click', () => track.scrollBy({ left: step() }));
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
 })();
