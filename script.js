@@ -271,10 +271,10 @@
     const propSet = document.getElementById('property-type');
     const done = form.querySelector('.f-done');
     const syncProperty = () => {
-      const isHomes = form.division.value === 'KLB Homes';
-      propSet.hidden = !isHomes;
-      propSet.disabled = !isHomes;
-      if (!isHomes) propSet.classList.remove('invalid');
+      const isRealEstate = form.division.value === 'Real Estate';
+      propSet.hidden = !isRealEstate;
+      propSet.disabled = !isRealEstate;
+      if (!isRealEstate) propSet.classList.remove('invalid');
     };
     form.addEventListener('change', e => {
       if (e.target.name === 'division') syncProperty();
@@ -307,19 +307,4 @@
     });
   }
 
-  /* ---------- Listings carousel ---------- */
-  const track = document.getElementById('listings');
-  if (track) {
-    const [prev, next] = document.querySelectorAll('.ls-nav button');
-    const step = () => track.firstElementChild.getBoundingClientRect().width + 16;
-    const sync = () => {
-      prev.disabled = track.scrollLeft <= 4;
-      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-    };
-    prev.addEventListener('click', () => track.scrollBy({ left: -step() }));
-    next.addEventListener('click', () => track.scrollBy({ left: step() }));
-    track.addEventListener('scroll', sync, { passive: true });
-    window.addEventListener('resize', sync);
-    sync();
-  }
 })();
