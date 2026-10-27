@@ -70,8 +70,7 @@
     const DXB = [25.2048, 55.2708];
     const places = [
       { n: 1, at: [51.5074, -0.1278], km: 5473 },   // London
-      { n: 2, at: [36.5101, -4.8825], km: 5785 },   // Marbella
-      { n: 3, at: [1.3521, 103.8198], km: 5837 },   // Singapore (ASEAN)
+      { n: 2, at: [1.3521, 103.8198], km: 5837 },   // Singapore (ASEAN)
     ];
     places.forEach(p => {
       const b = bearing(DXB, p.at), r = R * p.km / MAX_KM;
