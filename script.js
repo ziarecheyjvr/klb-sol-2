@@ -269,6 +269,7 @@
   if (form) {
     const propSet = document.getElementById('property-type');
     const done = form.querySelector('.f-done');
+    const failure = form.querySelector('.f-error');
     const syncProperty = () => {
       const isRealEstate = form.division.value === 'Real Estate';
       propSet.hidden = !isRealEstate;
@@ -282,7 +283,7 @@
     form.addEventListener('input', e => e.target.closest('.f-field')?.classList.remove('invalid'));
     syncProperty();
 
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       let firstBad = null;
       form.querySelectorAll('input[required]:not([type="radio"])').forEach(inp => {
@@ -296,13 +297,26 @@
       }
       if (firstBad) { firstBad.focus(); return; }
 
-      // TODO: send to the enquiry endpoint (CRM / email service). Payload is routed by division.
-      const data = Object.fromEntries(new FormData(form));
-      console.info('Enquiry', data);
-
-      form.querySelectorAll('.f-row, .f-grid, .f-submit').forEach(n => { n.hidden = true; });
-      done.hidden = false;
-      done.focus?.();
+      const submit = form.querySelector('button[type="submit"]');
+      failure.hidden = true;
+      submit.disabled = true;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        const result = await res.json().catch(() => ({}));
+        if (!res.ok || !result.ok) {
+          (result.fields || []).forEach(name => {
+            if (name === 'property') propSet.classList.add('invalid');
+            else form.elements[name]?.closest?.('.f-field')?.classList.add('invalid');
+          });
+          throw new Error('Enquiry not sent');
+        }
+        form.querySelectorAll('.f-row, .f-grid, .f-submit').forEach(n => { n.hidden = true; });
+        done.hidden = false;
+      } catch {
+        failure.hidden = false;
+      } finally {
+        submit.disabled = false;
+      }
     });
   }
 

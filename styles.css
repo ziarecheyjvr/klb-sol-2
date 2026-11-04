@@ -344,6 +344,9 @@ em { font-style: normal; }
 .f-field.invalid { border-bottom-color: #E5735E; }
 .f-field.invalid .f-lab::after { content: " — required"; color: #E5735E; }
 .f-submit { margin-top: 28px; display: flex; justify-content: flex-end; }
+.f-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.f-submit .btn:disabled { opacity: .6; cursor: progress; }
+.f-error { margin-top: 18px; color: #E5735E; }
 .f-done { padding: 22px 24px; border-radius: 8px; background: var(--green-dim); color: var(--green); font: 800 30px/1 var(--f-display); text-transform: uppercase; }
 
 /* Footer ----------------------------------------------------------------- */

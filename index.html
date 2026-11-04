@@ -351,7 +351,8 @@
       <p class="f-note">Prefer to talk? We'll arrange a Zoom call at a time that suits you.</p>
     </div>
 
-    <form class="form" id="enquiry" novalidate>
+    <form class="form" id="enquiry" action="send-enquiry.php" method="post" novalidate>
+      <div class="f-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <fieldset class="f-row">
         <legend><span class="mono f-no">01</span> What can we help with? <span class="req" aria-hidden="true">*</span></legend>
         <div class="chips">
@@ -399,6 +400,7 @@
       <div class="f-submit">
         <button class="btn btn-green" type="submit">Send enquiry <span class="arr">→</span></button>
       </div>
+      <p class="f-error" role="alert" hidden>Sorry, your enquiry didn't send. Please try again in a moment.</p>
       <p class="f-done" role="status" hidden>Received — we'll be in touch shortly to arrange a call.</p>
     </form>
   </div>
