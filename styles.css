@@ -212,10 +212,7 @@ em { font-style: normal; }
 .radar .marker circle { fill: var(--green); stroke: var(--bg-2); stroke-width: 3; }
 .radar .marker text { font: 700 13px var(--f-label); fill: var(--ink); text-anchor: middle; dominant-baseline: central; }
 .radar .hq { fill: var(--cream); }
-.radar .hq-halo { fill: var(--green); opacity: .25; transform-box: fill-box; transform-origin: center; animation: halo 2.4s var(--ease) infinite; }
-@keyframes halo { from { transform: scale(.6); opacity: .5; } to { transform: scale(3.4); opacity: 0; } }
-.radar .sweep { transform-origin: 300px 300px; animation: spin 7s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.radar .hq-halo { fill: var(--green); opacity: .25; }
 
 .legend { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line-strong); }
 .legend li { display: grid; grid-template-columns: 28px 1fr; column-gap: 14px; row-gap: 4px; padding: 22px 20px 6px 0; }
@@ -359,7 +356,7 @@ em { font-style: normal; }
 .foot-cols .label { margin-bottom: 14px; }
 .foot-cols ul { display: grid; gap: 8px; color: var(--text-soft); }
 .foot-cols a:hover { color: var(--green); }
-.foot-cta { color: var(--green); font-weight: 600; }
+.foot-cta { color: var(--green); font-weight: 600; display: inline-flex !important; align-items: center; gap: 6px; white-space: nowrap; }
 .fine-print { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 24px; font-size: 12px; }
 
 /* Reveal ----------------------------------------------------------------- */

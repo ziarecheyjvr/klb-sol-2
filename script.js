@@ -65,6 +65,8 @@
     const [sx, sy] = polar(-40, R), [ex, ey] = polar(0, R);
     el('path', { d: `M${C} ${C}L${sx} ${sy}A${R} ${R} 0 0 1 ${ex} ${ey}Z`, fill: 'url(#sweepGrad)', opacity: '.75' }, sweep);
     el('line', { x1: C, y1: C, x2: ex, y2: ey, stroke: '#4CB851', 'stroke-width': 1.4, opacity: '.9' }, sweep);
+    // SVG-native animation: Safari scales/rotates CSS-animated SVG from the wrong origin
+    if (!reduceMotion) el('animateTransform', { attributeName: 'transform', type: 'rotate', from: `0 ${C} ${C}`, to: `360 ${C} ${C}`, dur: '7s', repeatCount: 'indefinite' }, sweep);
 
     // routes + markers (distances as given, bearings computed from Dubai)
     const DXB = [25.2048, 55.2708];
@@ -82,7 +84,11 @@
       el('circle', { cx: x, cy: y, r: 13 }, g);
       el('text', { x, y }, g).textContent = p.n;
     });
-    el('circle', { class: 'hq-halo', cx: C, cy: C, r: 7 });
+    const halo = el('circle', { class: 'hq-halo', cx: C, cy: C, r: 7 });
+    if (!reduceMotion) {
+      el('animate', { attributeName: 'r', values: '4;24', dur: '2.4s', repeatCount: 'indefinite' }, halo);
+      el('animate', { attributeName: 'opacity', values: '.5;0', dur: '2.4s', repeatCount: 'indefinite' }, halo);
+    }
     el('circle', { class: 'hq', cx: C, cy: C, r: 7 });
   }
 
