@@ -196,7 +196,8 @@
       const rx = Math.min(W * 0.42, R * 1.55), ry = R * 0.52;
       tags.forEach((tag, i) => {
         const a = now * (reduceMotion ? 0 : 0.00018) + i * (Math.PI * 2 / tags.length);
-        const x = cx + Math.cos(a) * rx - tag.offsetWidth / 2;
+        // keep tags inside the console on narrow screens
+        const x = Math.max(6, Math.min(W - tag.offsetWidth - 6, cx + Math.cos(a) * rx - tag.offsetWidth / 2));
         const y = cy + Math.sin(a) * ry + (Math.cos(a) * -18) - tag.offsetHeight / 2;
         const depth = Math.sin(a); // >0 in front
         tag.style.transform = `translate(${x}px, ${y}px) scale(${0.86 + depth * 0.14})`;
